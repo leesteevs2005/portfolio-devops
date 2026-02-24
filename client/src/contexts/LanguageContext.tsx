@@ -35,6 +35,9 @@ const translations: Translations = {
   'about.highlight1': { pt: 'Experiência Prática', en: 'Practical Experience', es: 'Experiencia Práctica' },
   'about.highlight2': { pt: 'Aprendizado Contínuo', en: 'Continuous Learning', es: 'Aprendizaje Continuo' },
   'about.highlight3': { pt: 'Resolução de Problemas', en: 'Problem Solving', es: 'Resolución de Problemas' },
+  'about.development': { pt: 'Desenvolvimento', en: 'Development', es: 'Desarrollo' },
+  'about.infrastructure': { pt: 'Infraestrutura', en: 'Infrastructure', es: 'Infraestructura' },
+  'about.devops': { pt: 'DevOps', en: 'DevOps', es: 'DevOps' },
 
   // Skills
   'skills.title': { pt: 'Competências Técnicas', en: 'Technical Skills', es: 'Habilidades Técnicas' },

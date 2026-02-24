@@ -27,7 +27,7 @@ export default function About() {
     },
     {
       icon: Radio,
-      title: 'about.devops',
+      title: t('about.devops'),
       description: 'Foco em Docker, containerização e automação. Estudando cloud computing e CI/CD para crescimento profissional.',
     },
   ];
