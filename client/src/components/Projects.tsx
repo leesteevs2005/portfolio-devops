@@ -14,6 +14,20 @@ export default function Projects() {
   // Fallback projects se GitHub não estiver disponível
   const fallbackProjects = [
     {
+      title: 'Stack de Monitoramento Completa',
+      description: 'Observabilidade total com Prometheus, Grafana, Node Exporter e cAdvisor para métricas de host e containers.',
+      technologies: ['Prometheus', 'Grafana', 'Docker', 'Observability'],
+      features: [
+        'Coleta de métricas em tempo real',
+        'Dashboards interativos no Grafana',
+        'Alertas proativos no Prometheus',
+        'Monitoramento de recursos (CPU/RAM)',
+      ],
+      github: 'https://github.com/leesteevs2005/monitoring-stack',
+      demo: '#',
+      color: 'from-purple-600 to-indigo-600',
+    },
+    {
       title: 'Laboratório de Redes com VLANs',
       description: 'Simulação de ambiente corporativo segmentado por VLANs utilizando Linux Network Namespaces e 802.1Q.',
       technologies: ['Networking', 'Linux', 'VLAN', 'Bash'],
@@ -59,7 +73,7 @@ export default function Projects() {
 
   // Ordenar para que os novos projetos apareçam primeiro
   const sortedProjects = [...projects].sort((a, b) => {
-    const priority = ['lab-vlan', 'infra-automation', 'provisionamento-docker'];
+    const priority = ['monitoring-stack', 'lab-vlan', 'infra-automation', 'provisionamento-docker'];
     const indexA = priority.indexOf(a.name);
     const indexB = priority.indexOf(b.name);
     
@@ -108,8 +122,9 @@ export default function Projects() {
             {displayProjects.slice(0, 6).map((project, index) => {
               // Para projetos do GitHub
               if ('html_url' in project) {
-                const highlightedRepos = ['lab-vlan', 'infra-automation', 'provisionamento-docker'];
+                const highlightedRepos = ['monitoring-stack', 'lab-vlan', 'infra-automation', 'provisionamento-docker'];
                 const isNewProject = highlightedRepos.includes(project.name);
+                const isMonitoring = project.name === 'monitoring-stack';
                 const isInfra = project.name === 'infra-automation';
                 const isVlan = project.name === 'lab-vlan';
                 
@@ -120,7 +135,7 @@ export default function Projects() {
                     style={{ animationDelay: `${0.1 * index}s` }}
                   >
                     {/* Header com gradiente */}
-                    <div className={`h-32 bg-gradient-to-br ${isVlan ? 'from-orange-600 to-red-500' : isInfra ? 'from-emerald-600 to-teal-500' : isNewProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
+                    <div className={`h-32 bg-gradient-to-br ${isMonitoring ? 'from-purple-600 to-indigo-500' : isVlan ? 'from-orange-600 to-red-500' : isInfra ? 'from-emerald-600 to-teal-500' : isNewProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
                       <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Code2 className="text-white/50 group-hover:text-white/70 transition-colors" size={48} />
@@ -136,7 +151,7 @@ export default function Projects() {
                     <div className="p-6 flex flex-col flex-grow">
                       {/* Título */}
                       <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {isVlan ? 'Laboratório de VLANs' : isInfra ? 'Automação de Infraestrutura' : project.name === 'provisionamento-docker' ? 'Provisionamento Docker' : project.name}
+                        {isMonitoring ? 'Stack de Monitoramento' : isVlan ? 'Laboratório de VLANs' : isInfra ? 'Automação de Infraestrutura' : project.name === 'provisionamento-docker' ? 'Provisionamento Docker' : project.name}
                       </h3>
 
                       {/* Descrição */}
