@@ -1,55 +1,26 @@
-import { Briefcase, Calendar, MapPin, CheckCircle } from 'lucide-react';
+import { Briefcase, MapPin, Calendar } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 /**
  * Experience Component
- * Timeline vertical de experiência profissional
- * Design: Cards com ícones, timeline e animações ao scroll
+ * Timeline de experiência profissional
+ * Design: Vertical timeline com cards
  */
 export default function Experience() {
+  const { t } = useLanguage();
+
   const experiences = [
     {
-      title: 'Técnico de Suporte & Infraestrutura',
-      company: 'Trabalho Autônomo',
-      period: '2020 - Presente',
+      title: t('experience.freelance'),
+      period: '2022 - ' + t('experience.present'),
       location: 'Brasil',
-      description: 'Prestação de serviços técnicos especializados em infraestrutura e suporte',
+      description: 'Trabalho autônomo prestando serviços de manutenção, suporte técnico e configuração de infraestrutura para clientes diversos.',
       responsibilities: [
-        'Manutenção e suporte técnico em computadores e servidores',
-        'Configuração de redes locais (switches, roteadores, cabeamento)',
-        'Criação de scripts para automação de tarefas internas',
-        'Instalação e configuração de sistemas operacionais',
-        'Backup e recuperação de dados',
-        'Troubleshooting e resolução de problemas de rede',
-      ],
-    },
-    {
-      title: 'Estudante de ADS',
-      company: 'Análise e Desenvolvimento de Sistemas',
-      period: '2023 - Presente',
-      location: 'Brasil',
-      description: 'Formação acadêmica focada em desenvolvimento e infraestrutura',
-      responsibilities: [
-        'Estudos em programação e desenvolvimento de software',
-        'Aprendizado em infraestrutura e redes de computadores',
-        'Projetos práticos em Python, JavaScript e SQL',
-        'Desenvolvimento de habilidades em DevOps e Cloud',
-        'Participação em projetos colaborativos',
-        'Certificações em tecnologias emergentes',
-      ],
-    },
-    {
-      title: 'Especialista em Automação',
-      company: 'Projetos Pessoais',
-      period: '2021 - Presente',
-      location: 'Remoto',
-      description: 'Desenvolvimento de soluções de automação e infraestrutura',
-      responsibilities: [
-        'Criação de scripts Python para automação de processos',
-        'Setup de servidores Linux com Docker',
-        'Desenvolvimento de laboratórios de redes',
-        'Criação de ferramentas para backup automatizado',
-        'Documentação de processos e melhores práticas',
-        'Estudo contínuo de tecnologias DevOps',
+        t('experience.support'),
+        t('experience.networking'),
+        t('experience.cables'),
+        t('experience.switches'),
+        t('experience.automation'),
       ],
     },
   ];
@@ -57,92 +28,78 @@ export default function Experience() {
   return (
     <section id="experience" className="py-20 bg-gradient-to-b from-background to-card/30">
       <div className="container mx-auto px-4">
-        {/* Heading */}
-        <div className="text-center mb-16 animate-fadeInUp">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Experiência Profissional
-          </h2>
-          <p className="text-foreground/60 text-lg max-w-2xl mx-auto">
-            Trajetória profissional com foco em infraestrutura, automação e desenvolvimento
-          </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mt-6" />
-        </div>
+        <div className="max-w-3xl mx-auto">
+          {/* Heading */}
+          <div className="text-center mb-16 animate-fadeInUp">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              {t('experience.title')}
+            </h2>
+            <p className="text-foreground/60 text-lg">
+              {t('experience.description')}
+            </p>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mt-6" />
+          </div>
 
-        {/* Timeline */}
-        <div className="max-w-4xl mx-auto">
-          {experiences.map((exp, index) => (
-            <div
-              key={exp.company}
-              className="relative animate-fadeInUp"
-              style={{ animationDelay: `${0.2 * index}s` }}
+          {/* Timeline */}
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                className="relative animate-fadeInUp"
+                style={{ animationDelay: `${0.1 * index}s` }}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-0 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background -translate-x-1.5" />
+
+                {/* Content */}
+                <div className="ml-8 p-6 bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  {/* Header */}
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-foreground">{exp.title}</h3>
+                      <div className="flex flex-col gap-2 mt-2 text-foreground/60 text-sm">
+                        <div className="flex items-center gap-2">
+                          <Calendar size={16} />
+                          <span>{exp.period}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin size={16} />
+                          <span>{exp.location}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 md:mt-0 p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                      <Briefcase className="text-primary" size={24} />
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-foreground/70 mb-4">{exp.description}</p>
+
+                  {/* Responsibilities */}
+                  <div className="space-y-2">
+                    {exp.responsibilities.map((resp, respIndex) => (
+                      <div key={respIndex} className="flex items-start gap-3">
+                        <span className="text-primary mt-1">•</span>
+                        <span className="text-foreground/60 text-sm">{resp}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-16 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+            <p className="text-foreground/60 mb-4">Interessado em conversar sobre oportunidades?</p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
             >
-              {/* Timeline line */}
-              {index !== experiences.length - 1 && (
-                <div className="absolute left-6 top-20 w-1 h-32 bg-gradient-to-b from-primary/50 to-transparent" />
-              )}
-
-              {/* Timeline dot */}
-              <div className="absolute left-0 top-0 w-12 h-12 bg-card border-2 border-primary rounded-full flex items-center justify-center">
-                <Briefcase className="text-primary" size={20} />
-              </div>
-
-              {/* Content */}
-              <div className="ml-20 mb-12 bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground">
-                      {exp.title}
-                    </h3>
-                    <p className="text-primary font-semibold mt-1">
-                      {exp.company}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2 text-sm text-foreground/60">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      {exp.period}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin size={16} />
-                      {exp.location}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-foreground/70 mb-4 italic">
-                  {exp.description}
-                </p>
-
-                {/* Responsibilities */}
-                <div className="space-y-2">
-                  {exp.responsibilities.map((resp) => (
-                    <div
-                      key={resp}
-                      className="flex items-start gap-3 text-foreground/60 text-sm"
-                    >
-                      <CheckCircle className="text-primary mt-0.5 flex-shrink-0" size={16} />
-                      <span>{resp}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-          <p className="text-foreground/60 mb-4">
-            Interessado em saber mais sobre minha experiência?
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/50 text-primary font-semibold rounded-lg hover:bg-primary/20 transition-all duration-300"
-          >
-            Vamos Conversar
-          </a>
+              {t('experience.talk')}
+            </a>
+          </div>
         </div>
       </div>
     </section>

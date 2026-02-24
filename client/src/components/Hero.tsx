@@ -1,4 +1,5 @@
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 /**
  * Hero Component
@@ -6,6 +7,8 @@ import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
  * Design: Layout assimétrico com gradiente dinâmico e CTA destacado
  */
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 pb-10 relative overflow-hidden">
       {/* Background gradient animado */}
@@ -20,19 +23,19 @@ export default function Hero() {
           {/* Texto */}
           <div className="animate-fadeInLeft">
             <div className="inline-block mb-4 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
-              <span className="text-primary text-xs font-semibold">Bem-vindo ao meu portfólio</span>
+              <span className="text-primary text-xs font-semibold">{t('hero.welcome')}</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Leandro E. Souza
+              {t('hero.title')}
             </h1>
 
             <p className="text-xl text-foreground/70 mb-4 font-medium">
-              Infraestrutura | DevOps | Automação
+              {t('hero.subtitle')}
             </p>
 
             <p className="text-base md:text-lg text-foreground/60 mb-8 leading-relaxed max-w-xl">
-              Estudante de Análise e Desenvolvimento de Sistemas apaixonado por tecnologia e infraestrutura. Especializado em automação, Linux, Docker e configuração de ambientes. Buscando evoluir para a área de DevOps e Cloud Computing.
+              {t('hero.description')}
             </p>
 
             {/* CTAs */}
@@ -41,21 +44,21 @@ export default function Hero() {
                 href="#projects"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
               >
-                Ver Projetos
+                {t('hero.projects_btn')}
                 <ArrowRight size={20} />
               </a>
               <a
                 href="#contact"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary/50 text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300"
               >
-                Entrar em Contato
+                {t('hero.contact_btn')}
               </a>
             </div>
 
             {/* Social Links */}
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/leesteevs2005"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-card border border-border rounded-lg text-foreground/70 hover:text-primary hover:border-primary transition-all duration-300 hover:scale-110"
@@ -64,7 +67,7 @@ export default function Hero() {
                 <Github size={20} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/leandro-esteves-de-souza-820572236/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-card border border-border rounded-lg text-foreground/70 hover:text-primary hover:border-primary transition-all duration-300 hover:scale-110"
@@ -95,12 +98,12 @@ export default function Hero() {
                 </div>
                 <div className="p-6 font-mono text-sm space-y-3 min-h-64">
                   <div className="text-foreground/60">
-                    <span className="text-primary">$</span> whoami
+                    <span className="text-primary">$</span> {t('hero.terminal.whoami')}
                   </div>
                   <div className="text-foreground">leandro_devops</div>
                   
                   <div className="text-foreground/60 mt-4">
-                    <span className="text-primary">$</span> skills --list
+                    <span className="text-primary">$</span> {t('hero.terminal.skills')}
                   </div>
                   <div className="text-foreground space-y-1">
                     <div>• Python | Bash | Docker</div>
