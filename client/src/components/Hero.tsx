@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, Github, Linkedin } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 /**
@@ -75,13 +75,7 @@ export default function Hero() {
               >
                 <Linkedin size={20} />
               </a>
-              <a
-                href="mailto:leesteves2005@gmail.com"
-                className="p-3 bg-card border border-border rounded-lg text-foreground/70 hover:text-primary hover:border-primary transition-all duration-300 hover:scale-110"
-                aria-label="Email"
-              >
-                <Mail size={20} />
-              </a>
+
             </div>
           </div>
 

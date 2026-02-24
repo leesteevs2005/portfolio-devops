@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, ArrowUp } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 /**
@@ -32,11 +32,7 @@ export default function Footer() {
       href: 'https://www.linkedin.com/in/leandro-esteves-de-souza-820572236/',
       label: 'LinkedIn',
     },
-    {
-      icon: Mail,
-      href: 'mailto:leesteves2005@gmail.com',
-      label: 'Email',
-    },
+
   ];
 
   return (

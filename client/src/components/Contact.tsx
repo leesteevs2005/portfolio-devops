@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Phone, MapPin, Send } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { toast } from 'sonner';
 
@@ -35,12 +35,7 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: t('contact.email'),
-      value: 'leesteves2005@gmail.com',
-      href: 'mailto:leesteves2005@gmail.com',
-    },
+
     {
       icon: Phone,
       label: t('contact.phone'),
