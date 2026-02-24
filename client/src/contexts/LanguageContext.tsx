@@ -91,6 +91,10 @@ const translations: Translations = {
   'contact.placeholder.name': { pt: 'João Silva', en: 'John Doe', es: 'Juan García' },
   'contact.placeholder.email': { pt: 'seu@email.com', en: 'your@email.com', es: 'tu@email.com' },
   'contact.placeholder.message': { pt: 'Olá Leandro, gostaria de conversar sobre...', en: 'Hi Leandro, I would like to talk about...', es: 'Hola Leandro, me gustaría hablar sobre...' },
+  'contact.phone_number': { pt: '+55 (14) 99615-1288', en: '+55 (14) 99615-1288', es: '+55 (14) 99615-1288' },
+  'contact.location_city': { pt: 'Vera Cruz', en: 'Vera Cruz', es: 'Vera Cruz' },
+  'contact.location_state': { pt: 'Sao Paulo', en: 'Sao Paulo', es: 'Sao Paulo' },
+  'contact.location_country': { pt: 'Brasil', en: 'Brazil', es: 'Brasil' },
 
   // Footer
   'footer.quicklinks': { pt: 'Links Rápidos', en: 'Quick Links', es: 'Enlaces Rápidos' },
