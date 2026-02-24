@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, MapPin, Send } from 'lucide-react';
+import { Phone, MapPin, Send, User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { toast } from 'sonner';
 
@@ -46,6 +46,12 @@ export default function Contact() {
       icon: MapPin,
       label: t('contact.location'),
       value: 'São Paulo, Brasil',
+      href: '#',
+    },
+    {
+      icon: User,
+      label: 'Sexo',
+      value: 'Masculino',
       href: '#',
     },
   ];
