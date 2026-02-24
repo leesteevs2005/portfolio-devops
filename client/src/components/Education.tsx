@@ -13,7 +13,7 @@ export default function Education() {
       type: 'university',
       title: 'Análise e Desenvolvimento de Sistemas',
       institution: 'Faculdade (Cursando)',
-      period: '2024 - Presente',
+      period: '2024 - 2027',
       location: 'São Paulo, Brasil',
       description: 'Foco em desenvolvimento de software, arquitetura de sistemas e infraestrutura tecnológica.',
       icon: GraduationCap,
@@ -21,9 +21,19 @@ export default function Education() {
     },
     {
       type: 'course',
+      title: 'Formação Profissionalizante',
+      institution: 'Micro Pro de Marília',
+      period: '2019 - 2022',
+      location: 'Marília, SP',
+      description: 'Desenvolvimento de habilidades técnicas e profissionais, preparando para o mercado de trabalho com foco em tecnologia.',
+      icon: Award,
+      color: 'from-orange-600 to-red-600',
+    },
+    {
+      type: 'course',
       title: 'DevOps & Cloud Computing',
-      institution: 'Cursos de Especialização',
-      period: '2023 - 2024',
+      institution: 'Alura (Cursos Online)',
+      period: '2023 - Presente',
       location: 'Online',
       description: 'Especialização em Docker, Kubernetes, CI/CD, Terraform e provedores de Cloud (AWS/Azure).',
       icon: Award,
@@ -31,13 +41,13 @@ export default function Education() {
     },
     {
       type: 'course',
-      title: 'Infraestrutura de Redes e Servidores Linux',
-      institution: 'Cursos Técnicos',
+      title: 'Infraestrutura de Redes e Linux',
+      institution: 'Alura (Cursos Online)',
       period: '2022 - 2023',
-      location: 'São Paulo, Brasil',
+      location: 'Online',
       description: 'Configuração de serviços Linux, administração de redes corporativas e segurança de perímetros.',
       icon: Award,
-      color: 'from-orange-600 to-red-600',
+      color: 'from-cyan-600 to-blue-600',
     },
   ];
 
@@ -55,7 +65,7 @@ export default function Education() {
           <div className="w-16 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {education.map((item, index) => {
             const Icon = item.icon;
             return (
