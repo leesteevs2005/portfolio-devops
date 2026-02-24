@@ -14,6 +14,20 @@ export default function Projects() {
   // Fallback projects se GitHub não estiver disponível
   const fallbackProjects = [
     {
+      title: 'Automação de Infraestrutura com Python',
+      description: 'Ferramenta modular para gerenciamento remoto de servidores Linux via SSH, automatizando usuários, pacotes e serviços.',
+      technologies: ['Python', 'SSH', 'Paramiko', 'YAML'],
+      features: [
+        'Conexão segura via SSH/Paramiko',
+        'Gerenciamento de usuários e permissões',
+        'Instalação automatizada de pacotes',
+        'Controle de estado de serviços (systemd)',
+      ],
+      github: 'https://github.com/leesteevs2005/infra-automation',
+      demo: '#',
+      color: 'from-emerald-600 to-teal-600',
+    },
+    {
       title: 'Provisionamento de Servidor Linux com Docker',
       description: 'Automatização completa de infraestrutura: Docker, Nginx Proxy Reverso, Monitoramento cAdvisor e Segurança UFW.',
       technologies: ['Docker', 'Bash', 'Nginx', 'Node.js'],
@@ -41,26 +55,17 @@ export default function Projects() {
       demo: '#',
       color: 'from-blue-500 to-cyan-500',
     },
-    {
-      title: 'Laboratório de Redes Local',
-      description: 'Ambiente de laboratório para estudos de redes com múltiplos switches, roteadores e VLANs configuradas.',
-      technologies: ['Networking', 'VLAN', 'Switches', 'Roteadores'],
-      features: [
-        'Configuração de VLANs',
-        'Roteamento entre subredes',
-        'Segurança de rede',
-        'Troubleshooting prático',
-      ],
-      github: 'https://github.com/leesteevs2005',
-      demo: '#',
-      color: 'from-green-500 to-emerald-500',
-    },
   ];
 
-  // Ordenar para que o projeto de provisionamento apareça primeiro se vier do GitHub
+  // Ordenar para que os novos projetos apareçam primeiro
   const sortedProjects = [...projects].sort((a, b) => {
-    if (a.name === 'provisionamento-docker') return -1;
-    if (b.name === 'provisionamento-docker') return 1;
+    const priority = ['infra-automation', 'provisionamento-docker'];
+    const indexA = priority.indexOf(a.name);
+    const indexB = priority.indexOf(b.name);
+    
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
     return 0;
   });
 
@@ -103,22 +108,24 @@ export default function Projects() {
             {displayProjects.slice(0, 6).map((project, index) => {
               // Para projetos do GitHub
               if ('html_url' in project) {
-                const isDockerProject = project.name === 'provisionamento-docker';
+                const isNewProject = ['infra-automation', 'provisionamento-docker'].includes(project.name);
+                const isInfra = project.name === 'infra-automation';
+                
                 return (
                   <div
                     key={project.id}
-                    className={`group bg-card border ${isDockerProject ? 'border-primary/50 shadow-lg shadow-primary/5' : 'border-border'} rounded-lg overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 animate-fadeInUp flex flex-col`}
+                    className={`group bg-card border ${isNewProject ? 'border-primary/50 shadow-lg shadow-primary/5' : 'border-border'} rounded-lg overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 animate-fadeInUp flex flex-col`}
                     style={{ animationDelay: `${0.1 * index}s` }}
                   >
                     {/* Header com gradiente */}
-                    <div className={`h-32 bg-gradient-to-br ${isDockerProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
+                    <div className={`h-32 bg-gradient-to-br ${isInfra ? 'from-emerald-600 to-teal-500' : isNewProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
                       <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Code2 className="text-white/50 group-hover:text-white/70 transition-colors" size={48} />
                       </div>
-                      {isDockerProject && (
+                      {isNewProject && (
                         <div className="absolute top-2 right-2 px-2 py-1 bg-primary text-primary-foreground text-[10px] font-bold rounded uppercase tracking-wider">
-                          Novo
+                          Destaque
                         </div>
                       )}
                     </div>
@@ -127,7 +134,7 @@ export default function Projects() {
                     <div className="p-6 flex flex-col flex-grow">
                       {/* Título */}
                       <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {isDockerProject ? 'Provisionamento Docker' : project.name}
+                        {isInfra ? 'Automação de Infraestrutura' : project.name === 'provisionamento-docker' ? 'Provisionamento Docker' : project.name}
                       </h3>
 
                       {/* Descrição */}
@@ -221,11 +228,6 @@ export default function Projects() {
                           <span>{feature}</span>
                         </div>
                       ))}
-                      {project.features.length > 2 && (
-                        <div className="text-foreground/50 text-xs text-primary">
-                          +{project.features.length - 2} mais
-                        </div>
-                      )}
                     </div>
 
                     {/* Technologies */}
