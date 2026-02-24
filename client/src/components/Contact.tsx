@@ -38,8 +38,8 @@ export default function Contact() {
     {
       icon: Mail,
       label: t('contact.email'),
-      value: 'leandro@email.com',
-      href: 'mailto:leandro@email.com',
+      value: 'leesteves2005@gmail.com',
+      href: 'mailto:leesteves2005@gmail.com',
     },
     {
       icon: Phone,

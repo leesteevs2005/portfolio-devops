@@ -34,7 +34,7 @@ export default function Footer() {
     },
     {
       icon: Mail,
-      href: 'mailto:leandro@email.com',
+      href: 'mailto:leesteves2005@gmail.com',
       label: 'Email',
     },
   ];
