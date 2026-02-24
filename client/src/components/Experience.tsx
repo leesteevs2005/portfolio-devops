@@ -11,8 +11,20 @@ export default function Experience() {
 
   const experiences = [
     {
+      title: t('experience.fulltime'),
+      period: 'Set 2024 - ' + t('experience.present'),
+      location: 'Garça, SP',
+      description: t('experience.fulltime_desc'),
+      responsibilities: [
+        t('experience.fulltime_resp1'),
+        t('experience.fulltime_resp2'),
+        t('experience.fulltime_resp3'),
+        t('experience.fulltime_resp4'),
+      ],
+    },
+    {
       title: t('experience.freelance'),
-      period: '2022 - ' + t('experience.present'),
+      period: '2022 - 2024',
       location: 'Brasil',
       description: 'Trabalho autônomo prestando serviços de manutenção, suporte técnico e configuração de infraestrutura para clientes diversos.',
       responsibilities: [

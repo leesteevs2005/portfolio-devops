@@ -52,6 +52,12 @@ const translations: Translations = {
   'experience.cables': { pt: 'Criação de Cabos', en: 'Cable Creation', es: 'Creación de Cables' },
   'experience.switches': { pt: 'Configuração de Switches e Roteadores', en: 'Switches and Routers Configuration', es: 'Configuración de Switches y Enrutadores' },
   'experience.automation': { pt: 'Scripts para Automação Interna', en: 'Scripts for Internal Automation', es: 'Scripts para Automatización Interna' },
+  'experience.fulltime': { pt: 'Fulltime', en: 'Fulltime', es: 'Fulltime' },
+  'experience.fulltime_desc': { pt: 'Atuação em infraestrutura e suporte técnico em uma das maiores empresas de monitoramento e rastreamento do Brasil.', en: 'Working in infrastructure and technical support at one of the largest monitoring and tracking companies in Brazil.', es: 'Actuación en infraestructura y soporte técnico en una de las mayores empresas de monitoreo y rastreo de Brasil.' },
+  'experience.fulltime_resp1': { pt: 'Manutenção e monitoramento de infraestrutura crítica', en: 'Maintenance and monitoring of critical infrastructure', es: 'Mantenimiento y monitoreo de infraestructura crítica' },
+  'experience.fulltime_resp2': { pt: 'Suporte técnico especializado em soluções de rastreamento e IoT', en: 'Specialized technical support in tracking and IoT solutions', es: 'Soporte técnico especializado en soluciones de rastreo e IoT' },
+  'experience.fulltime_resp3': { pt: 'Configuração e gerenciamento de ambientes de rede', en: 'Configuration and management of network environments', es: 'Configuración y gestión de entornos de red' },
+  'experience.fulltime_resp4': { pt: 'Automação de processos internos e suporte a sistemas legados', en: 'Internal process automation and legacy systems support', es: 'Automatización de procesos internos y soporte a sistemas legados' },
   'experience.present': { pt: 'Presente', en: 'Present', es: 'Presente' },
   'experience.talk': { pt: 'Vamos Conversar', en: "Let's Talk", es: 'Hablemos' },
 
