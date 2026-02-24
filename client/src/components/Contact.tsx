@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Phone, MapPin, Send, User, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import emailjs from '@emailjs/browser';
 
 /**
  * Contact Component
- * Formulário de contato com EmailJS
+ * Formulário de contato com Formspree
  * Design: Cards com informações e formulário responsivo
  */
 export default function Contact() {
@@ -20,11 +19,6 @@ export default function Contact() {
     type: 'success' | 'error';
     message: string;
   } | null>(null);
-
-  useEffect(() => {
-    // Inicializar EmailJS com chave pública
-    emailjs.init('4QBiCZZRdrVcigNul');
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -47,22 +41,30 @@ export default function Contact() {
 
     setIsLoading(true);
     try {
-      await emailjs.send('service_portfolio', 'template_portfolio', {
-        to_email: 'leesteves2005@gmail.com',
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-        reply_to: formData.email,
+      const response = await fetch('https://formspree.io/f/xyzpqwab', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
       });
 
-      setNotification({
-        type: 'success',
-        message: 'Email enviado com sucesso! Obrigado pelo contato.',
-      });
-      setFormData({ name: '', email: '', message: '' });
+      if (response.ok) {
+        setNotification({
+          type: 'success',
+          message: 'Email enviado com sucesso! Obrigado pelo contato.',
+        });
+        setFormData({ name: '', email: '', message: '' });
 
-      // Remover notificação após 5 segundos
-      setTimeout(() => setNotification(null), 5000);
+        // Remover notificação após 5 segundos
+        setTimeout(() => setNotification(null), 5000);
+      } else {
+        throw new Error('Erro ao enviar');
+      }
     } catch (error) {
       console.error('Erro ao enviar email:', error);
       setNotification({
