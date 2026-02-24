@@ -14,6 +14,20 @@ export default function Projects() {
   // Fallback projects se GitHub não estiver disponível
   const fallbackProjects = [
     {
+      title: 'Laboratório de Redes com VLANs',
+      description: 'Simulação de ambiente corporativo segmentado por VLANs utilizando Linux Network Namespaces e 802.1Q.',
+      technologies: ['Networking', 'Linux', 'VLAN', 'Bash'],
+      features: [
+        'Segmentação com Linux Namespaces',
+        'Configuração de VLAN Tagging (802.1Q)',
+        'Roteamento Inter-VLAN prático',
+        'Topologia de rede corporativa',
+      ],
+      github: 'https://github.com/leesteevs2005/lab-vlan',
+      demo: '#',
+      color: 'from-orange-600 to-red-600',
+    },
+    {
       title: 'Automação de Infraestrutura com Python',
       description: 'Ferramenta modular para gerenciamento remoto de servidores Linux via SSH, automatizando usuários, pacotes e serviços.',
       technologies: ['Python', 'SSH', 'Paramiko', 'YAML'],
@@ -41,25 +55,11 @@ export default function Projects() {
       demo: '#',
       color: 'from-blue-600 to-indigo-600',
     },
-    {
-      title: 'Script de Backup Automatizado',
-      description: 'Sistema completo de backup automatizado em Python com compressão, criptografia e sincronização em nuvem.',
-      technologies: ['Python', 'Bash', 'Cron', 'AWS S3'],
-      features: [
-        'Agendamento automático com Cron',
-        'Compressão e criptografia de dados',
-        'Sincronização com S3',
-        'Logs detalhados e notificações',
-      ],
-      github: 'https://github.com/leesteevs2005',
-      demo: '#',
-      color: 'from-blue-500 to-cyan-500',
-    },
   ];
 
   // Ordenar para que os novos projetos apareçam primeiro
   const sortedProjects = [...projects].sort((a, b) => {
-    const priority = ['infra-automation', 'provisionamento-docker'];
+    const priority = ['lab-vlan', 'infra-automation', 'provisionamento-docker'];
     const indexA = priority.indexOf(a.name);
     const indexB = priority.indexOf(b.name);
     
@@ -108,8 +108,10 @@ export default function Projects() {
             {displayProjects.slice(0, 6).map((project, index) => {
               // Para projetos do GitHub
               if ('html_url' in project) {
-                const isNewProject = ['infra-automation', 'provisionamento-docker'].includes(project.name);
+                const highlightedRepos = ['lab-vlan', 'infra-automation', 'provisionamento-docker'];
+                const isNewProject = highlightedRepos.includes(project.name);
                 const isInfra = project.name === 'infra-automation';
+                const isVlan = project.name === 'lab-vlan';
                 
                 return (
                   <div
@@ -118,7 +120,7 @@ export default function Projects() {
                     style={{ animationDelay: `${0.1 * index}s` }}
                   >
                     {/* Header com gradiente */}
-                    <div className={`h-32 bg-gradient-to-br ${isInfra ? 'from-emerald-600 to-teal-500' : isNewProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
+                    <div className={`h-32 bg-gradient-to-br ${isVlan ? 'from-orange-600 to-red-500' : isInfra ? 'from-emerald-600 to-teal-500' : isNewProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
                       <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Code2 className="text-white/50 group-hover:text-white/70 transition-colors" size={48} />
@@ -134,7 +136,7 @@ export default function Projects() {
                     <div className="p-6 flex flex-col flex-grow">
                       {/* Título */}
                       <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {isInfra ? 'Automação de Infraestrutura' : project.name === 'provisionamento-docker' ? 'Provisionamento Docker' : project.name}
+                        {isVlan ? 'Laboratório de VLANs' : isInfra ? 'Automação de Infraestrutura' : project.name === 'provisionamento-docker' ? 'Provisionamento Docker' : project.name}
                       </h3>
 
                       {/* Descrição */}
