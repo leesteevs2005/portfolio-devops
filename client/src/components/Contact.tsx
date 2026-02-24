@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Phone, MapPin, Send, User } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Phone, MapPin, Send, User, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { toast } from 'sonner';
+import emailjs from '@emailjs/browser';
 
 /**
  * Contact Component
- * Formulário de contato e informações
+ * Formulário de contato com EmailJS
  * Design: Cards com informações e formulário responsivo
  */
 export default function Contact() {
@@ -15,6 +15,16 @@ export default function Contact() {
     email: '',
     message: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // Inicializar EmailJS com chave pública
+    emailjs.init('4QBiCZZRdrVcigNul');
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,41 +34,41 @@ export default function Contact() {
     }));
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Por favor, preencha todos os campos');
+      setNotification({
+        type: 'error',
+        message: 'Por favor, preencha todos os campos',
+      });
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: 'Novo contato do portfólio',
-          message: formData.message,
-        }),
+      await emailjs.send('service_portfolio', 'template_portfolio', {
+        to_email: 'leesteves2005@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        reply_to: formData.email,
       });
 
-      if (response.ok) {
-        toast.success('Email enviado com sucesso! Obrigado pelo contato.');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        const error = await response.json();
-        toast.error(error.error || 'Erro ao enviar email');
-      }
+      setNotification({
+        type: 'success',
+        message: 'Email enviado com sucesso! Obrigado pelo contato.',
+      });
+      setFormData({ name: '', email: '', message: '' });
+
+      // Remover notificação após 5 segundos
+      setTimeout(() => setNotification(null), 5000);
     } catch (error) {
-      console.error('Erro:', error);
-      toast.error('Erro ao enviar email. Tente novamente.');
+      console.error('Erro ao enviar email:', error);
+      setNotification({
+        type: 'error',
+        message: 'Erro ao enviar email. Tente novamente.',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -120,6 +130,36 @@ export default function Contact() {
           })}
         </div>
 
+        {/* Notification Pop-up */}
+        {notification && (
+          <div className="fixed top-4 right-4 z-50 animate-fadeInUp">
+            <div
+              className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-xl border backdrop-blur-sm ${
+                notification.type === 'success'
+                  ? 'bg-green-500/10 border-green-500/30 text-green-700 dark:text-green-300'
+                  : 'bg-red-500/10 border-red-500/30 text-red-700 dark:text-red-300'
+              }`}
+            >
+              <div className="flex-shrink-0">
+                {notification.type === 'success' ? (
+                  <CheckCircle size={24} className="text-green-500" />
+                ) : (
+                  <AlertCircle size={24} className="text-red-500" />
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-sm md:text-base">{notification.message}</p>
+              </div>
+              <button
+                onClick={() => setNotification(null)}
+                className="flex-shrink-0 ml-2 hover:opacity-70 transition-opacity"
+              >
+                <X size={20} />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Contact Form */}
         <div className="max-w-2xl mx-auto animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
           <div className="p-8 bg-card border border-border rounded-lg">
@@ -180,7 +220,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
               >
                 <Send size={20} />
                 {isLoading ? 'Enviando...' : t('contact.send')}
