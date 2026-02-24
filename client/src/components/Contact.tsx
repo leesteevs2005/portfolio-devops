@@ -35,23 +35,22 @@ export default function Contact() {
   };
 
   const contactInfo = [
-
     {
       icon: Phone,
       label: t('contact.phone'),
-      value: '+55 (11) 9XXXX-XXXX',
-      href: 'tel:+5511999999999',
+      value: '+55 (14) 99615-1288',
+      href: 'tel:+5514996151288',
     },
     {
       icon: MapPin,
       label: t('contact.location'),
-      value: 'São Paulo, Brasil',
+      value: 'Vera Cruz, SP - Brasil',
       href: '#',
     },
     {
       icon: User,
-      label: 'Sexo',
-      value: 'Masculino',
+      label: 'Profissão',
+      value: 'Infraestrutura | DevOps',
       href: '#',
     },
   ];

@@ -81,7 +81,22 @@ export default function Hero() {
 
           {/* Visualização técnica */}
           <div className="hidden lg:flex items-center justify-center animate-fadeInRight">
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md space-y-6">
+              {/* Profile Card */}
+              <div className="bg-card border border-border rounded-lg overflow-hidden shadow-2xl p-6 text-center">
+                <img
+                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663379970610/gUTKXKxUWirScXEq.jpg"
+                  alt="Leandro E. Souza"
+                  className="w-32 h-32 rounded-full border-4 border-primary object-cover mx-auto mb-4"
+                />
+                <h3 className="text-xl font-bold text-foreground mb-2">Leandro E. Souza</h3>
+                <p className="text-foreground/60 text-sm mb-4">Infraestrutura | DevOps | Automacao</p>
+                <div className="space-y-2 text-sm text-foreground/70 border-t border-border pt-4">
+                  <div>+55 (14) 99615-1288</div>
+                  <div>Vera Cruz, SP - Brasil</div>
+                </div>
+              </div>
+
               {/* Terminal-like visualization */}
               <div className="bg-card border border-border rounded-lg overflow-hidden shadow-2xl">
                 <div className="bg-secondary/50 px-4 py-3 border-b border-border flex items-center gap-2">
