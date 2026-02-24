@@ -14,6 +14,20 @@ export default function Projects() {
   // Fallback projects se GitHub não estiver disponível
   const fallbackProjects = [
     {
+      title: 'Provisionamento de Servidor Linux com Docker',
+      description: 'Automatização completa de infraestrutura: Docker, Nginx Proxy Reverso, Monitoramento cAdvisor e Segurança UFW.',
+      technologies: ['Docker', 'Bash', 'Nginx', 'Node.js'],
+      features: [
+        'Provisionamento automático via Bash',
+        'Orquestração com Docker Compose',
+        'Proxy Reverso e Segurança UFW',
+        'Monitoramento de Containers',
+      ],
+      github: 'https://github.com/leesteevs2005/provisionamento-docker',
+      demo: '#',
+      color: 'from-blue-600 to-indigo-600',
+    },
+    {
       title: 'Script de Backup Automatizado',
       description: 'Sistema completo de backup automatizado em Python com compressão, criptografia e sincronização em nuvem.',
       technologies: ['Python', 'Bash', 'Cron', 'AWS S3'],
@@ -26,20 +40,6 @@ export default function Projects() {
       github: 'https://github.com/leesteevs2005',
       demo: '#',
       color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Setup Servidor Linux com Docker',
-      description: 'Configuração completa de servidor Linux com Docker, incluindo orquestração de containers e monitoramento.',
-      technologies: ['Linux', 'Docker', 'Docker Compose', 'Nginx'],
-      features: [
-        'Configuração de servidor do zero',
-        'Docker e Docker Compose',
-        'Reverse proxy com Nginx',
-        'Monitoramento com Prometheus',
-      ],
-      github: 'https://github.com/leesteevs2005',
-      demo: '#',
-      color: 'from-purple-500 to-pink-500',
     },
     {
       title: 'Laboratório de Redes Local',
@@ -57,7 +57,14 @@ export default function Projects() {
     },
   ];
 
-  const displayProjects = projects.length > 0 ? projects : fallbackProjects;
+  // Ordenar para que o projeto de provisionamento apareça primeiro se vier do GitHub
+  const sortedProjects = [...projects].sort((a, b) => {
+    if (a.name === 'provisionamento-docker') return -1;
+    if (b.name === 'provisionamento-docker') return 1;
+    return 0;
+  });
+
+  const displayProjects = sortedProjects.length > 0 ? sortedProjects : fallbackProjects;
 
   return (
     <section id="projects" className="py-20 bg-background">
@@ -96,25 +103,31 @@ export default function Projects() {
             {displayProjects.slice(0, 6).map((project, index) => {
               // Para projetos do GitHub
               if ('html_url' in project) {
+                const isDockerProject = project.name === 'provisionamento-docker';
                 return (
                   <div
                     key={project.id}
-                    className="group bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 animate-fadeInUp flex flex-col"
+                    className={`group bg-card border ${isDockerProject ? 'border-primary/50 shadow-lg shadow-primary/5' : 'border-border'} rounded-lg overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 animate-fadeInUp flex flex-col`}
                     style={{ animationDelay: `${0.1 * index}s` }}
                   >
                     {/* Header com gradiente */}
-                    <div className="h-32 bg-gradient-to-br from-blue-500 to-cyan-500 relative overflow-hidden">
+                    <div className={`h-32 bg-gradient-to-br ${isDockerProject ? 'from-indigo-600 to-blue-500' : 'from-blue-500 to-cyan-500'} relative overflow-hidden`}>
                       <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Code2 className="text-white/50 group-hover:text-white/70 transition-colors" size={48} />
                       </div>
+                      {isDockerProject && (
+                        <div className="absolute top-2 right-2 px-2 py-1 bg-primary text-primary-foreground text-[10px] font-bold rounded uppercase tracking-wider">
+                          Novo
+                        </div>
+                      )}
                     </div>
 
                     {/* Content */}
                     <div className="p-6 flex flex-col flex-grow">
                       {/* Título */}
                       <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                        {project.name}
+                        {isDockerProject ? 'Provisionamento Docker' : project.name}
                       </h3>
 
                       {/* Descrição */}
@@ -134,18 +147,14 @@ export default function Projects() {
 
                       {/* Stats */}
                       <div className="flex gap-4 mb-6 text-foreground/60 text-xs">
-                        {project.stargazers_count > 0 && (
-                          <div className="flex items-center gap-1">
-                            <Star size={14} />
-                            {project.stargazers_count}
-                          </div>
-                        )}
-                        {project.forks_count > 0 && (
-                          <div className="flex items-center gap-1">
-                            <GitFork size={14} />
-                            {project.forks_count}
-                          </div>
-                        )}
+                        <div className="flex items-center gap-1">
+                          <Star size={14} />
+                          {project.stargazers_count}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <GitFork size={14} />
+                          {project.forks_count}
+                        </div>
                       </div>
 
                       {/* Links */}
