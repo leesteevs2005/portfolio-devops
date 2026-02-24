@@ -24,13 +24,43 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.message) {
-      toast.success(t('contact.success'));
-      setFormData({ name: '', email: '', message: '' });
-    } else {
+    
+    if (!formData.name || !formData.email || !formData.message) {
       toast.error('Por favor, preencha todos os campos');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: 'Novo contato do portfólio',
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success('Email enviado com sucesso! Obrigado pelo contato.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const error = await response.json();
+        toast.error(error.error || 'Erro ao enviar email');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      toast.error('Erro ao enviar email. Tente novamente.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -149,10 +179,11 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={20} />
-                {t('contact.send')}
+                {isLoading ? 'Enviando...' : t('contact.send')}
               </button>
             </form>
           </div>
