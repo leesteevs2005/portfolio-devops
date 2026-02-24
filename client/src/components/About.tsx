@@ -1,4 +1,4 @@
-import { Code2, Zap, Target } from 'lucide-react';
+import { Code2, Zap, Target, Radio } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 /**
@@ -23,6 +23,11 @@ export default function About() {
     {
       icon: Target,
       title: t('about.devops'),
+      description: 'Foco em Docker, containerização e automação. Estudando cloud computing e CI/CD para crescimento profissional.',
+    },
+    {
+      icon: Radio,
+      title: 'about.devops',
       description: 'Foco em Docker, containerização e automação. Estudando cloud computing e CI/CD para crescimento profissional.',
     },
   ];
@@ -50,7 +55,7 @@ export default function About() {
           </div>
 
           {/* Highlights Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((highlight, index) => {
               const Icon = highlight.icon;
               return (
