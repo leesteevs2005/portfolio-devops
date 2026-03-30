@@ -31,6 +31,16 @@ export default function Education() {
     },
     {
       type: 'course',
+      title: 'AWS na Escola da Nuvem',
+      institution: 'Escola da Nuvem',
+      period: 'Março 2026 - Setembro 2026 (Cursando)',
+      location: 'Online',
+      description: 'Curso intensivo focado em serviços AWS, arquitetura em nuvem e preparação para certificações oficiais.',
+      icon: Award,
+      color: 'from-yellow-500 to-orange-500',
+    },
+    {
+      type: 'course',
       title: 'DevOps & Cloud Computing',
       institution: 'Alura (Cursos Online)',
       period: '2023 - Presente',
